@@ -8,28 +8,25 @@ homeDir = os.path.join(os.path.expanduser("~"), "Videos")
 if not os.path.isdir(homeDir):
     raise ValueError(f"Directory does not exist: {homeDir}")
 
-# starts recording
 def startRecording():
     obs.obs_frontend_recording_start()
 
 
-# stops recording
 def stopRecording():
     obs.obs_frontend_recording_stop()
-
 # gets current file path
     oldPath = getOldFilePath()
 # gets new file name
-    newName = getNewFileName()
-    assignFileName(newName, oldPath)
+    newFilePath = getNewFileName()
+    assignFileName(newFilePath, oldPath)
 
 
 # gets name of file
 def getNewFileName():
     category = input("input category")
     moveName = input("input moveName")
-    newFileName = checkFileName(category, moveName)
-    return newFileName
+    newFilePath = checkFileName(category, moveName)
+    return newFilePath
 
 # checks if file name is already taken
 def checkFileName(category, moveName):
@@ -57,9 +54,3 @@ def getOldFilePath():
 # returns the updated file path
 def getNewFilePath(newName):
     return os.path.join(homeDir, f"{newName}.mp4")
-
-""" 
-next ensure all the folders are made
-then make it where the files will go to their respective folders ie. exciting in exciting
-then submission in submisson etc.
-"""
