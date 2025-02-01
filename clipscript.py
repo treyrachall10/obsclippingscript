@@ -11,7 +11,6 @@ if not os.path.isdir(homeDir):
 def startRecording():
     obs.obs_frontend_recording_start()
 
-
 def stopRecording():
     obs.obs_frontend_recording_stop()
 # gets current file path
@@ -20,13 +19,26 @@ def stopRecording():
     newFilePath = getNewFileName()
     assignFileName(newFilePath, oldPath)
 
-
 # gets name of file
 def getNewFileName():
     category = input("input category")
     moveName = input("input moveName")
     newFilePath = checkFileName(category, moveName)
     return newFilePath
+
+# returns the updated file path
+def getNewFilePath(newName):
+    return os.path.join(homeDir, f"{newName}.mp4")
+
+# returns the current file path
+def getOldFilePath():
+    currentTime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+    oldPath = os.path.join(homeDir, f"{currentTime}.mp4")
+    return oldPath
+
+# assigns new file name
+def assignFileName(newName, oldPath):
+    os.rename(oldPath, newName)
 
 # checks if file name is already taken
 def checkFileName(category, moveName):
@@ -40,17 +52,3 @@ def checkFileName(category, moveName):
         if not os.path.exists(newFilePath):
             return newFilePath
         counter += 1
-
-# assigns new file name
-def assignFileName(newName, oldPath):
-    os.rename(oldPath, newName)
-
-# returns the current file path
-def getOldFilePath():
-    currentTime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
-    oldPath = os.path.join(homeDir, f"{currentTime}.mp4")
-    return oldPath
-
-# returns the updated file path
-def getNewFilePath(newName):
-    return os.path.join(homeDir, f"{newName}.mp4")
